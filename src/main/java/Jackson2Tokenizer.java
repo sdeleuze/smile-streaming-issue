@@ -128,8 +128,8 @@ public class Jackson2Tokenizer {
 			this.tokenBuffer.copyCurrentEvent(this.parser);
 		}
 
-		if ((token == JsonToken.END_OBJECT &&  this.objectDepth == 0 && (this.arrayDepth == 1 || this.arrayDepth == 0)) ||
-				(token.isScalarValue()) && this.objectDepth == 0 && this.arrayDepth == 0) {
+		if (this.objectDepth == 0 && (this.arrayDepth == 0 || this.arrayDepth == 1) &&
+				(token == JsonToken.END_OBJECT || token.isScalarValue())) {
 			result.add(this.tokenBuffer);
 			this.tokenBuffer = new TokenBuffer(this.parser);
 		}
